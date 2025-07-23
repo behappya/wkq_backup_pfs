@@ -175,6 +175,55 @@ class DatasetManager:
 
         final_info_path = meta_dst_dir / "info.json"
         final_total_episodes = "N/A"
+
+        #===xzy modified for editing task index in parquet file 
+        
+        def load_jsonl(path):
+            with open(path, 'r') as f:
+                return [json.loads(l) for l in f if l.strip()]
+        taskname2taskid = {}
+        with open(meta_dst_dir / "tasks.jsonl", "r"):
+            tasks = load_jsonl(meta_dst_dir / "tasks.jsonl")
+            for task in tasks:
+                taskname2taskid[task["task"]] = task["task_index"]
+
+        with open(meta_dst_dir / "episodes.jsonl", "r"):
+            episodes = load_jsonl(meta_dst_dir / "episodes.jsonl") 
+        # import pdb; pdb.set_trace()
+        # episode2taskid = {ep["episode_index"]: taskname2taskid[ep["tasks"][0]] for ep in episodes}
+        episode2taskid = {}
+        for ep in episodes:
+            try:
+                episode2taskid[ep["episode_index"]] = taskname2taskid[ep["tasks"][0]]
+            except Exception as e:
+                print(e)
+                import pdb; pdb.set_trace()
+
+            
+        assert chunk_name == "chunk-000" 
+        src_chunk_dir = output_dir / "data" / chunk_name
+        assert src_chunk_dir.exists()
+
+        src_files = self._natural_sort_paths(src_chunk_dir.glob("episode_*.parquet"))
+        if not src_files:
+            if verbose:
+                print(f"No Parquet files found in {src_chunk_dir}")
+            return 0
+        count_processed = 0
+        for src_file_path in src_files:
+            episode_idx = self._extract_idx_from_name(src_file_path.name)
+
+            try:
+                
+                df = pd.read_parquet(src_file_path)
+                df["task_index"] = episode2taskid[episode_idx]
+
+                df.to_parquet(src_file_path)
+                count_processed += 1
+            except Exception as e:
+                print(f"Error processing Parquet {src_file_path}: {e}")
+                
+        #===
         if final_info_path.exists():
             try:
                 final_info = json.loads(final_info_path.read_text())
