@@ -20,7 +20,7 @@ def main(args):
     # 路径设置
     src_root = Path(args.src_root)
     dst_root = Path(args.dst_root)
-
+    raise NotImplementedError("与clean and copy进行同步")
 
     # 源路径
     src_data = src_root / "data/chunk-000"

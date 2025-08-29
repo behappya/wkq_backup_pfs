@@ -89,18 +89,27 @@ def main(args):
     save_jsonl(dst_meta / "episodes.jsonl", [ep for ep, _ in filtered])
     save_jsonl(dst_meta / "episodes_stats.jsonl", [st for _, st in filtered])
 
+    # 将modalit.json也copy过去
+    shutil.copy2(args.modality_file_path, dst_meta / "modality.json")
+
+
+    # 将原来meta下面的tasks.jsonl也copy过去
+    shutil.copy2(src_meta / "tasks.jsonl", dst_meta / "tasks.jsonl")
+
     # === 更新 info.json 中 total_episodes 字段 ===
     info_path_src = src_meta / "info.json"
     info_path_dst = dst_meta / "info.json"
     with open(info_path_src, 'r') as f:
         info = json.load(f)
     info["total_episodes"] = len(filtered)
+    info["total_videos"] = len(cam_list) * len(filtered)
+    info["splits"]["train"] = "0:" + str(len(filtered))
     with open(info_path_dst, 'w') as f:
         json.dump(info, f, indent=2)
 
     print(f"\n✅ 清理和复制完成！共保留 {len(filtered)} 个 episodes，编号从 000000 开始。")
     print(f"📁 输出保存路径: {dst_root}")
-    raise NotImplementedError("请手动修改info.json以及添加task.json")
+    print("请再次检查删除后tasks.jsonl的映射是否正确")
 
 
 if __name__ == "__main__":
@@ -109,6 +118,7 @@ if __name__ == "__main__":
     parser.add_argument("--dst_root", type=str, required=True, help="Path to output folder")
     parser.add_argument("--remove_txt", type=str, required=True, help="Path to txt file containing episode IDs to remove")
     parser.add_argument("--cams", type=str, required=True, help="Comma-separated list of camera suffixes, e.g. 'front,wrist,side'")
+    parser.add_argument("--modality_file_path", type=str, required=True, help="Path to modality.json file")
     args = parser.parse_args()
     main(args)
 
