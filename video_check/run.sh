@@ -1,0 +1,1 @@
+python validate_videos.py /pfs/pfs-ahGxdf/data/xiezhengyuan/backup/pens=241+212_tapes=233+218/
