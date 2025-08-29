@@ -1,0 +1,1 @@
+python dataset_tool_cli.py merge --datasets "/pfs/pfs-ahGxdf/data/xiezhengyuan/so101_data/block/0805-pour-blk0 /pfs/pfs-ahGxdf/data/xiezhengyuan/so101_data/block/0805-pour-blk4" --output_dir /pfs/pfs-ahGxdf/data/xiezhengyuan/so101_data/block/0805-pour-merged
