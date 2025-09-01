@@ -27,7 +27,7 @@ def validate_videos_with_seek(directory, extensions):
 
     print(f"Scanning for video files in: {directory}")
     print(f"Looking for extensions: {', '.join(extensions)}")
-    
+
     video_paths = find_video_files(directory, extensions)
     
     if not video_paths:
@@ -133,18 +133,21 @@ if __name__ == "__main__":
     
 
     # 检查args.data_directory + "videos"下面有chunk-000
-    assert os.path.exists(args.data_directory + "videos/chunk-000/"), "There should be only one chunk-000 directory in args.data_directory + 'videos/'"
+    assert os.path.exists(args.data_directory + "/videos/chunk-000/"), args.data_directory + "videos/chunk-000/"
     
-    video_dirs = os.listdir(args.data_directory + "videos/chunk-000/")
+    video_dirs = os.listdir(args.data_directory + "/videos/chunk-000/")
 
     all_error_ids = set([])
     for video_dir in video_dirs:
         
-        error_ids = validate_videos_with_seek(args.data_directory + "videos/chunk-000/" +video_dir, normalized_extensions)
+        error_ids = validate_videos_with_seek(args.data_directory + "/videos/chunk-000/" +video_dir, normalized_extensions)
         all_error_ids  = all_error_ids | error_ids
     print(f"All error ids: {all_error_ids}")
     # 将all_error_ids写入到args.data_directory + "low_quality.txt",每个id一行，去除前导0，如果txt文件已存在则追加
-    with open(args.data_directory + "low_quality.txt", "a+") as f:
+    if not os.path.exists(args.data_directory + "/low_quality.txt"):
+        with open(args.data_directory + "/low_quality.txt", "w") as f:
+            pass
+    with open(args.data_directory + "/low_quality.txt", "a+") as f:
         for error_id in all_error_ids:
             f.write(str(int(error_id)) + "\n")
 
