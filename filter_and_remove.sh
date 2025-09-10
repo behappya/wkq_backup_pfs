@@ -1,16 +1,15 @@
 
 
 
-FOLDER_NAME=blk0/20250825_blk0
-DATA_PATH=/pfs/pfs-ahGxdf/data/collect_data/so101/${FOLDER_NAME} # 需要填，原始路径
-TARGET_PATH=/pfs/pfs-ahGxdf/data/xiezhengyuan/backup/generalizable_pick_place_processed/${FOLDER_NAME} # 需要填，待生成的目标路径
+FOLDER_NAME=blk3/20250825/put_coffee_capsules_into_pen_holder
+DATA_PATH=/pfs/data/wangkaiqi/workspace/datasets/collect_data/generalizable_pick_place_processed/${FOLDER_NAME} # 需要填，原始路径
+TARGET_PATH=/pfs/data/wangkaiqi/workspace/datasets/collect_data/backup/generalizable_pick_place_processed/${FOLDER_NAME} # 需要填，待生成的目标路径
 
 
 
-
-MODALITY_PATH=/pfs/pfs-ahGxdf/data/xiezhengyuan/backup/modality_files/so101_front_wrist_state-dim6_action-dim6/modality.json # 通常不需要改
+MODALITY_PATH=/pfs/data/xiezhengyuan/backup/modality_files/so101_front_wrist_state-dim6_action-dim6/modality.json # 通常不需要改
 # 手工检查出错的视频id
-MANUALLY_CHECK_WRONG_VIDEOS="" # 需要填，质检出问题的编号，如果没问题则改为""
+MANUALLY_CHECK_WRONG_VIDEOS="11" # 需要填，质检出问题的编号，如果没问题则改为""
 
 
 filename="${DATA_PATH}/low_quality.txt" # 通常不需要改

@@ -1,7 +1,7 @@
 python all_in_one_filter_and_remove.py \
-  --src_base_path /pfs/pfs-ahGxdf/data/collect_data/so101 \
-  --dst_base_path /pfs/pfs-ahGxdf/data/xiezhengyuan/backup/generalizable_pick_place_processed \
-  --search_dirs "blk0,blk3" \
+  --src_base_path /pfs/pfs-ahGxdf/data/xiezhengyuan/backup/ori_data \
+  --dst_base_path /pfs/pfs-ahGxdf/data/xiezhengyuan/backup/ \
+  --search_dirs "0904-three-pen-right-left,0904-two-pen-right-left" \
   --modality_path /pfs/pfs-ahGxdf/data/xiezhengyuan/backup/modality_files/so101_front_wrist_state-dim6_action-dim6/modality.json \
   --cams "front,wrist" \
   --validator_script "video_check/validate_videos.py"

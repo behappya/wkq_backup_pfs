@@ -1,0 +1,3 @@
+# all_in_one_filter_and_remove.sh使用方法
+
+bash all_in_one_filter_and_remove.sh即可递归检查指定路径下的所有lerobot数据集文件，删除无法解析或者时间戳对不齐的episode，将结果按照原存储路径
