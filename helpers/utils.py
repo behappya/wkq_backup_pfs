@@ -242,11 +242,16 @@ def visualise_voxel(
         alpha,
     )
     if show:
+        print(f"now chose show:{show}")
+        # return True
         scene.show()
     else:
+        print(f"offscreen_renderer:{offscreen_renderer},and pyrender.OffscreenRenderer:{pyrender.OffscreenRenderer} ")
         r = offscreen_renderer or pyrender.OffscreenRenderer(
             viewport_width=640, viewport_height=480, point_size=1.0
         )
+        print(f"Renderer r: {r}")
+        print(f"Renderer viewport_width: {r.viewport_width}, viewport_height: {r.viewport_height}")
         s = _from_trimesh_scene(
             scene, ambient_light=[0.8, 0.8, 0.8], bg_color=[1.0, 1.0, 1.0]
         )

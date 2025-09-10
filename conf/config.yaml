@@ -5,9 +5,9 @@ ddp:
 
 rlbench:
     task_name: "multi"
-    tasks: [open_drawer,slide_block_to_color_target]
+    tasks: [bimanual_push_box]
     demos: 100
-    demo_path: /my/demo/path
+    demo_path: /pfs/data/wangkaiqi/peract_bimanual/datasets_rl/squashfs-root
     episode_length: 25
     cameras: ["over_shoulder_left", "over_shoulder_right", "overhead", "wrist_right", "wrist_left", "front"]
     camera_resolution: [128, 128]
@@ -15,7 +15,7 @@ rlbench:
     include_lang_goal_in_obs: True
 
 replay:
-    batch_size: 8
+    batch_size: 2
     timesteps: 1
     prioritisation: False
     task_uniform: True # uniform sampling of tasks for multi-task buffers
@@ -34,7 +34,7 @@ framework:
     training_iterations: 40000
     gpu: 0
     env_gpu: 0
-    logdir: '/tmp/arm_test/'
+    logdir: '/pfs/data/wangkaiqi/peract_bimanual/arm_test/'
     logging_level: 20 # https://docs.python.org/3/library/logging.html#levels
     seeds: 1
     start_seed: 0
@@ -45,7 +45,7 @@ framework:
     checkpoint_name_prefix: "checkpoint"
 
 defaults:
-    - method: PERACT_BC
+    - method: BIMANUAL_PERACT
 
 hydra:
     run:

@@ -15,7 +15,7 @@ from helpers.observation_utils import create_obs_config
 import torch.multiprocessing as mp
 
 
-@hydra.main(config_name="config", config_path="conf")
+@hydra.main(config_name="config", config_path="conf",version_base="1.1")
 def main(cfg: DictConfig) -> None:
     cfg_yaml = OmegaConf.to_yaml(cfg)
     logging.info("\n" + cfg_yaml)

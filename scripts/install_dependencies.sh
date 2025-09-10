@@ -3,7 +3,8 @@
 
 # edit this line if you want to install the dependencies to another directory
 
-WORKSPACE_DIR=${HOME}/code
+# WORKSPACE_DIR=${HOME}/code
+WORKSPACE_DIR=/pfs/data/wangkaiqi/code
 ENVIRONMENT_NAME=rlbench
 
 basedir=$(dirname $0)
